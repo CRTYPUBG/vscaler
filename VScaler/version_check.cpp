@@ -221,8 +221,7 @@ void RunVersionCheck()
     }
     else
     {
-        LOG_INFO("VScaler is up to date (current {}.{}.{})", VER_MAJOR_VERSION, VER_MINOR_VERSION,
-                 VER_HOTFIX_VERSION);
+        LOG_INFO("VScaler is up to date (current {}.{}.{})", VER_MAJOR_VERSION, VER_MINOR_VERSION, VER_HOTFIX_VERSION);
     }
 }
 } // namespace
