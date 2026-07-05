@@ -1,0 +1,460 @@
+REM Setup VScaler for your game
+@echo off
+cls
+echo  ::::::::  :::::::::  ::::::::::: :::::::::::  ::::::::   ::::::::      :::     :::        :::::::::: :::::::::  
+echo :+:    :+: :+:    :+:     :+:         :+:     :+:    :+: :+:    :+:   :+: :+:   :+:        :+:        :+:    :+: 
+echo +:+    +:+ +:+    +:+     +:+         +:+     +:+        +:+         +:+   +:+  +:+        +:+        +:+    +:+ 
+echo +#+    +:+ +#++:++#+      +#+         +#+     +#++:++#++ +#+        +#++:++#++: +#+        +#++:++#   +#++:++#:  
+echo +#+    +#+ +#+            +#+         +#+            +#+ +#+        +#+     +#+ +#+        +#+        +#+    +#+ 
+echo #+#    #+# #+#            #+#         #+#     #+#    #+# #+#    #+# #+#     #+# #+#        #+#        #+#    #+# 
+echo  ########  ###            ###     ###########  ########   ########  ###     ### ########## ########## ###    ### 
+echo.
+echo Coping is strong with this one...
+echo v2.75 - now with VPatcher support
+echo.
+
+del "!! README_EXTRACT ALL FILES TO GAME FOLDER !!.txt" 2>nul
+
+setlocal enabledelayedexpansion
+
+if not exist VScaler.dll (
+    echo VScaler "VScaler.dll" file is not found^^!
+    echo Either a folder permissions issue or the repo source code was downloaded.
+    echo.
+    echo If "VScaler.dll" exists, please manually rename to a supported filename ^(e.g. dxgi/winmm.dll^) and you are done^^!
+	echo No need to run the setup BAT again after renaming.
+	echo.
+    echo If .sln or .git files are in the folder, congratz, you have the source code. Now try properly downloading Opti please
+    echo Hint - use the Releases page on GitHub, or RTFM :^)
+    echo.
+    echo.
+    goto end
+)
+
+
+REM Check if old pre-0.9 additional files exist, along with an existing Opti installation
+set "OLD_FILES_FOUND=0"
+set "OPTI_DLL_LIST="
+if exist nvapi64.dll set "OLD_FILES_FOUND=1"
+if exist nvngx.dll set "OLD_FILES_FOUND=1"
+if exist VScaler.asi set "OLD_FILES_FOUND=1"
+if exist "Remove VScaler.bat" set "OLD_FILES_FOUND=1"
+
+for %%F in (dxgi.dll winmm.dll d3d12.dll dbghelp.dll version.dll wininet.dll winhttp.dll) do (
+    if exist "%%F" (
+        set "origname="
+        for /f "tokens=*" %%P in ('powershell -NoProfile -Command "(Get-Item '%%F').VersionInfo.OriginalFilename"') do (
+            set "origname=%%P"
+        )
+        if /i "!origname!"=="VScaler.dll" (
+            set "OLD_FILES_FOUND=1"
+            set "OPTI_DLL_LIST=!OPTI_DLL_LIST! %%F"
+        )
+    )
+)
+
+if "!OLD_FILES_FOUND!"=="1" (
+    echo WARNING: Possible old VScaler file^(s^) detected^^!
+    if exist nvapi64.dll echo   - nvapi64.dll
+    if exist nvngx.dll echo   - nvngx.dll
+    if exist VScaler.asi echo   - VScaler.asi
+    if exist "Remove VScaler.bat" echo   - Remove VScaler.bat
+    for %%F in (!OPTI_DLL_LIST!) do echo   - %%F ^(original filename: VScaler.dll^)
+    echo.
+    echo These files may conflict with the current version of VScaler.
+    echo It is recommended to delete them.
+    echo.
+    set /p "USER_CHOICE=Do you want to delete these files? (y/n): "
+    echo.
+    if /i "!USER_CHOICE!"=="y" (
+        if exist nvapi64.dll (
+            del nvapi64.dll
+            echo Deleted nvapi64.dll
+        )
+        if exist nvngx.dll (
+            del nvngx.dll
+            echo Deleted nvngx.dll
+        )
+        if exist VScaler.asi (
+            del VScaler.asi
+            echo Deleted VScaler.asi
+        )
+        if exist "Remove VScaler.bat" (
+            del "Remove VScaler.bat"
+            echo Deleted Remove VScaler.bat
+        )
+        for %%F in (!OPTI_DLL_LIST!) do (
+            del "%%F"
+            echo Deleted %%F
+        )
+        echo Done^^!
+    ) else (
+        echo Skipping deletion. Note that these files may cause issues.
+    )
+    echo.
+)
+
+REM Set paths based on current directory
+set "gamePath=%~dp0"
+set "VScalerFile=%gamePath%\VScaler.dll"
+set setupSuccess=false
+
+REM Check if the Engine folder exists
+if exist "%gamePath%\Engine" (
+    echo Found Engine folder, if this is an Unreal Engine game then please extract VScaler to #CODENAME#\Binaries\Win64
+    echo.
+    
+    set /p continueChoice="Continue installation to current folder? [y/n]: "
+    set continueChoice=!continueChoice: =!
+
+    if "!continueChoice!"=="y" (
+        goto selectFilename
+    )
+
+    goto end
+)
+
+REM Prompt user to select a filename for VScaler
+:selectFilename
+echo.
+echo Choose a filename for VScaler (default is dxgi.dll, most compatible):
+echo (For Vulkan, use winmm.dll. For XGP/MS Store, winmm/version.dll may be better)
+echo.
+echo  [1] dxgi.dll
+echo  [2] winmm.dll
+echo  [3] version.dll
+echo  [4] dbghelp.dll
+echo  [5] d3d12.dll
+echo  [6] wininet.dll
+echo  [7] winhttp.dll
+echo  [8] VScaler.asi
+echo.
+set /p filenameChoice="Enter 1-8 (or press Enter for default): "
+
+if "%filenameChoice%"=="" (
+    set selectedFilename="dxgi.dll"
+) else if "%filenameChoice%"=="1" (
+    set selectedFilename="dxgi.dll"
+) else if "%filenameChoice%"=="2" (
+    set selectedFilename="winmm.dll"
+) else if "%filenameChoice%"=="3" (
+    set selectedFilename="version.dll"
+) else if "%filenameChoice%"=="4" (
+    set selectedFilename="dbghelp.dll"
+) else if "%filenameChoice%"=="5" (
+    set selectedFilename="d3d12.dll"
+) else if "%filenameChoice%"=="6" (
+    set selectedFilename="wininet.dll"
+) else if "%filenameChoice%"=="7" (
+    set selectedFilename="winhttp.dll"
+) else if "%filenameChoice%"=="8" (
+    set selectedFilename="VScaler.asi"
+) else (
+    echo Invalid choice. Please select a valid option.
+    echo.
+    goto selectFilename
+)
+
+if exist %selectedFilename% (
+    echo.
+    echo WARNING: %selectedFilename% already exists in the current folder.
+    echo.
+    set /p overwriteChoice="Do you want to overwrite %selectedFilename%? [y/n]: "
+    set overwriteChoice=!overwriteChoice: =!
+    
+    echo.
+    if "!overwriteChoice!"=="y" (
+        goto checkWine
+    )
+
+    goto selectFilename
+)
+
+REM Wine doesn't support powershell
+:checkWine
+reg query HKEY_CURRENT_USER\Software\Wine >nul 2>&1
+if %errorlevel%==0 (
+    echo.
+    echo Using wine, skipping over spoofing checks.
+    echo If you need, you can disable spoofing by setting Dxgi=false in the config
+    echo.
+    pause
+    goto completeSetup
+) 
+
+if exist %windir%\system32\nvapi64.dll (
+    echo.
+    echo Nvidia driver files detected.
+    set isNvidia=true
+) else (
+    set isNvidia=false
+)
+
+REM Query user for GPU type
+echo.
+echo Are you using an Nvidia GPU or AMD/Intel GPU?
+echo [1] AMD/Intel
+echo [2] Nvidia
+echo.
+
+:gpuPrompt
+if "%isNvidia%"=="true" (
+    set /p gpuChoice="Enter 1 or 2 (Detected Nvidia): "
+) else (
+    set /p gpuChoice="Enter 1 or 2 (Detected AMD/Intel): "
+)
+
+if "%gpuChoice%"=="1" goto gpuValid
+if "%gpuChoice%"=="2" goto gpuValid
+echo Invalid input. Please enter 1 or 2.
+echo.
+goto gpuPrompt
+
+:gpuValid
+
+REM Skip spoofing if Nvidia
+if "%gpuChoice%"=="2" (
+    goto completeSetup
+)
+
+REM Query user for DLSS
+echo.
+echo Will you try to use DLSS inputs to replace with FSR/XeSS? (enables Nvidia spoofing, required for DLSS-FG, Reflex-^>AL2)
+echo If you want to change the setting later, edit VScaler.ini and set Dxgi=false to disable spoofing and reverse.
+echo.
+echo [1] Yes
+echo [2] No
+echo.
+set /p enablingSpoofing="Enter 1 or 2 (or press Enter for Yes): "
+
+set configFile=VScaler.ini
+if "%enablingSpoofing%"=="2" (
+    if not exist "%configFile%" (
+        echo Config file not found: %configFile%
+        pause
+    )
+
+    powershell -Command "(Get-Content '%configFile%') -replace 'Dxgi=auto', 'Dxgi=false' | Set-Content '%configFile%'"
+)
+
+REM Decide whether to run OptiPatcher
+echo.
+if "%gpuChoice%"=="1" (
+    echo AMD/Intel GPU detected - running OptiPatcher check.
+    goto checkExistingOptiPatcher
+)
+
+:checkExistingOptiPatcher
+set "foundOptiPatcher="
+for %%F in (plugins\*OptiPatcher*.asi) do (
+    set "foundOptiPatcher=%%F"
+)
+
+if defined foundOptiPatcher (
+    echo.
+    echo OptiPatcher found: !foundOptiPatcher!
+    echo If the existing version works properly, might be best to keep it.
+    set /p optiRedownload="Do you want to re-download a possibly newer version [y/n]? "
+        
+    if /i "!optiRedownload!"=="y" (
+        echo.
+        echo Deleting !foundOptiPatcher!...
+        del "!foundOptiPatcher!"
+        goto checkOptiPatcher
+    ) else (
+        echo.
+        echo Keeping existing OptiPatcher - skipping download.
+        goto completeSetup
+    )
+)
+
+REM Not installed - continue to download
+goto checkOptiPatcher
+
+:checkOptiPatcher
+REM Check connectivity
+echo.
+echo Checking for OptiPatcher compatibility...
+echo Press Ctrl+C if this gets stuck to skip to setup completion.
+
+ping -n 1 -w 3000 github.com >nul 2>&1
+if %errorlevel% neq 0 (
+    echo Offline or GitHub blocked. Skipping OptiPatcher check.
+    goto completeSetup
+)
+
+set "OPTI_MATCH=NO"
+for /f "usebackq tokens=*" %%A in (`powershell -Command "& { $rawUrl = 'https://raw.githubusercontent.com/VScaler/OptiPatcher/main/OptiPatcher/dllmain.cpp'; try { $code = (Invoke-WebRequest -Uri $rawUrl -UseBasicParsing).Content } catch { return 'ERR' }; $supported = @(); $ueMatches = [Regex]::Matches($code, 'CHECK_UE\s*\(\s*([a-zA-Z0-9_]+)\s*\)'); foreach ($m in $ueMatches) { $base = $m.Groups[1].Value; $supported += ($base + '-win64-shipping.exe').ToLower(); $supported += ($base + '-wingdk-shipping.exe').ToLower(); }; $directMatches = [Regex]::Matches($code, 'exeName\s*==\s*[\x22\x27]([^\x22\x27]+)[\x22\x27]'); foreach ($m in $directMatches) { $supported += $m.Groups[1].Value.ToLower(); }; $localFiles = Get-ChildItem *.exe | Select-Object -ExpandProperty Name; foreach ($file in $localFiles) { if ($supported -contains $file.ToLower()) { Write-Output 'YES'; exit; } }; Write-Output 'NO'; }"`) do (
+    set "OPTI_MATCH=%%A"
+)
+
+if "!OPTI_MATCH!"=="YES" (
+    echo.
+    echo OptiPatcher support detected^^!
+    echo An Opti plugin used for unlocking DLSS/DLSS-FG inputs, avoiding spoofing and performance overhead in supported games.
+    echo More info available on OptiPatcher Github
+    echo.
+    set /p downloadOptiPatcher="Download OptiPatcher.asi? [y/n]: "
+    set downloadOptiPatcher=!downloadOptiPatcher: =!
+    
+    if "!downloadOptiPatcher!"=="y" (
+        echo.
+        echo Preparing plugins folder...
+        if not exist "plugins" mkdir "plugins"
+        
+        echo Downloading OptiPatcher...
+        echo Press Ctrl+C if this gets stuck to skip to setup completion.
+        echo.
+        powershell -Command "Invoke-WebRequest -Uri 'https://github.com/VScaler/OptiPatcher/releases/download/rolling/OptiPatcher.asi' -OutFile 'plugins\OptiPatcher.asi'"
+        if errorlevel 1 goto completeSetup
+        
+        if exist "plugins\OptiPatcher.asi" (
+            echo OptiPatcher.asi downloaded successfully.
+            echo Enabling ASI loading in VScaler.ini...
+            if exist "%configFile%" (
+                powershell -Command "(Get-Content '%configFile%') -replace 'LoadAsiPlugins=auto', 'LoadAsiPlugins=true' | Set-Content '%configFile%'"
+                echo Successfully enabled ASI loading in VScaler.ini^^!
+            ) else (
+                echo Warning: VScaler.ini not found, could not enable LoadAsiPlugins.
+            )
+        ) else (
+            echo Failed to download OptiPatcher.asi.
+        )
+     timeout /t 3
+    )
+)
+echo.
+
+goto completeSetup
+
+:completeSetup
+REM Rename VScaler file
+echo.
+if "!overwriteChoice!"=="y" (
+    echo Removing previous %selectedFilename%...
+    del /F %selectedFilename% 
+)
+
+echo Renaming VScaler file to %selectedFilename%...
+rename "%VScalerFile%" %selectedFilename%
+if errorlevel 1 (
+    echo.
+    echo ERROR: Failed to rename VScaler file to %selectedFilename%. Most likely due to folder permissions issues.
+    echo Please rename VScaler.dll manually to %selectedFilename%^^! No need to run setup BAT again after that.
+    echo.
+    goto end
+)
+
+goto create_uninstaller
+
+:create_uninstaller_return
+
+cls
+echo  VScaler setup completed successfully...
+echo.
+echo   ___                 
+echo  (_         '        
+echo  /__  /)   /  () (/  
+echo          _/      /    
+echo.
+
+set setupSuccess=true
+
+:end
+pause
+
+if "%setupSuccess%"=="true" (
+    del "setup_linux.sh"
+    del %0
+)
+
+exit /b
+
+:create_uninstaller
+setlocal DisableDelayedExpansion
+
+(
+echo @echo off
+echo setlocal EnableDelayedExpansion
+echo cls
+echo echo  ::::::::  :::::::::  ::::::::::: :::::::::::  ::::::::   ::::::::      :::     :::        :::::::::: :::::::::  
+echo echo :+:    :+: :+:    :+:     :+:         :+:     :+:    :+: :+:    :+:   :+: :+:   :+:        :+:        :+:    :+: 
+echo echo +:+    +:+ +:+    +:+     +:+         +:+     +:+        +:+         +:+   +:+  +:+        +:+        +:+    +:+ 
+echo echo +#+    +:+ +#++:++#+      +#+         +#+     +#++:++#++ +#+        +#++:++#++: +#+        +#++:++#   +#++:++#:  
+echo echo +#+    +#+ +#+            +#+         +#+            +#+ +#+        +#+     +#+ +#+        +#+        +#+    +#+ 
+echo echo #+#    #+# #+#            #+#         #+#     #+#    #+# #+#    #+# #+#     #+# #+#        #+#        #+#    #+# 
+echo echo  ########  ###            ###     ###########  ########   ########  ###     ### ########## ########## ###    ### 
+echo echo.
+echo echo Coping is strong with this one...
+echo echo v2.75 - now with OptiPatcher support
+echo echo.
+echo REM Check if VScaler installation exists
+echo set "OLD_FILES_FOUND=0"
+echo set "OPTI_DLL_LIST="
+echo if exist VScaler.asi set "OLD_FILES_FOUND=1"
+
+echo for %%%%F in ^(dxgi.dll winmm.dll d3d12.dll dbghelp.dll version.dll wininet.dll winhttp.dll^) do ^(
+echo     if exist "%%%%F" ^(
+echo         set "origname="
+echo         for /f "tokens=*" %%%%P in ^('powershell -NoProfile -Command "(Get-Item '%%%%F').VersionInfo.OriginalFilename"'^) do ^(
+echo             set "origname=%%%%P"
+echo         ^)
+echo         if /i "!origname!"=="VScaler.dll" ^(
+echo             set "OLD_FILES_FOUND=1"
+echo             set "OPTI_DLL_LIST=!OPTI_DLL_LIST! %%%%F"
+echo         ^)
+echo     ^)
+echo ^)
+
+echo if "!OLD_FILES_FOUND!"=="1" ^(
+echo     echo Existing VScaler installation detected^^^^!
+echo     if exist VScaler.asi echo   - VScaler.asi
+echo     for %%%%F in ^(!OPTI_DLL_LIST!^) do echo   - %%%%F - original filename: VScaler.dll
+echo     echo.
+echo ^)
+
+echo set /p removeChoice="Do you want to remove VScaler? [y/n]: "
+echo echo.
+
+echo if "%%removeChoice%%"=="y" ^(
+echo     del VScaler.log
+echo     del VScaler.ini
+echo     del VScaler.asi
+echo     del fakenvapi.dll
+echo     del fakenvapi.ini
+echo     del fakenvapi.log
+echo     del dlssg_to_fsr3_amd_is_better.dll
+echo     del dlssg_to_fsr3.log
+echo     del /Q D3D12_VScaler\*
+echo     rd D3D12_VScaler
+echo     del /Q DlssOverrides\*
+echo     rd DlssOverrides
+echo     del /Q Licenses\*
+echo     rd Licenses
+echo     for %%%%F in ^(!OPTI_DLL_LIST!^) do ^(del "%%%%F"^)
+echo     echo.
+echo     echo Deleting OptiPatcher if present
+echo     del plugins\OptiPatcher.asi
+echo     rd plugins
+echo     echo.
+echo     echo VScaler removed^^^^! Ignore the warnings about missing files.
+echo     echo.
+echo ^) else ^(
+echo     echo.
+echo     echo Operation cancelled.
+echo     echo.
+echo ^)
+
+echo.
+echo pause
+echo if "%%removeChoice%%"=="y" ^(
+echo     del %%0
+echo ^)
+) > "Remove VScaler.bat"
+
+endlocal
+echo.
+echo Uninstaller created.
+echo.
+
+goto create_uninstaller_return
