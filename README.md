@@ -1,7 +1,5 @@
 <div align="center">
 
-<img width="800" height="154" alt="V" src="https://github.com/user-attachments/assets/7334a8d3-5378-477a-9d04-4070ec0d8f24" />
-
 
 </div>
 
@@ -35,23 +33,23 @@
 **VScaler** is a tool that lets you replace upscalers in games that ***already support DLSS2+ / FSR2+ / XeSS*** ($`^1`$), as well as manage ***frame generation*** in already mentioned games _(either by replacing existing FG options or enabling it in DX12 games through experimental ***VFG***)_. It also offers extensive customization options for all users, including those with Nvidia GPUs using DLSS.
 
 > [!CAUTION]
-> * We've been informed about some **FAKE websites** presenting themselves as VScaler team, so we would like to strongly highlight that we **DO NOT HAVE an official website!**
+> * We've been informed about some **FAKE websites** presenting themselves as cscaler team, so we would like to strongly highlight that we **DO NOT HAVE an official website!**
 > * **We DON'T have an official manager app**, so please be careful when downloading or using them!
 > * Only **LEGIT places** are this Github, our Discord server and Nitec's NexusMods page.  
-> * VScaler is **FREE**, any kind of monetary requirements are scams!  
+> * cscaler is **FREE**, any kind of monetary requirements are scams!  
 
 > [!TIP]
-> _For example, if a game has DLSS only, VScaler can be used to replace DLSS with XeSS or FSR 3.1 (also works for FSR2-only games, like The Outer Worlds Spacer's Choice, albeit requires manually providing nvngx_dlss.dll)._
+> _For example, if a game has DLSS only, cscaler can be used to replace DLSS with XeSS or FSR 3.1 (also works for FSR2-only games, like The Outer Worlds Spacer's Choice, albeit requires manually providing nvngx_dlss.dll)._
 
-**Key aspects of VScaler:**
+**Key aspects of cscaler:**
 - Enables usage of XeSS, FSR2, FSR3, **FSR4**$`^2`$ (_officially, RDNA4 only_) and DLSS in (temporal) upscaler-enabled games
 - Allows users to fine-tune their upscaling experience with a wide range of tweaks and enhancements (RCAS & MAS, Output Scaling, DLSS Presets, Ratio & DRS Overrides etc.)
 - Since v0.7.0+, added ***experimental DX12*** frame generation support with possible HUDfix solution ([**VFG**](#VFG--hudfix-experimental-hud-ghosting-fix))
 - Supports [**Fakenvapi**](#installation) integration - enables Reflex hooking and injecting _Anti-Lag 2_ (RDNA1+ only), _LatencyFlex_ (LFX) or _XeLL_ (Intel only) - _bundled since 0.9_  
 - Since v0.7.7, added support for **Nukem's** FSR3-FG mod [**dlssg-to-fsr3**](#installation), only supports games with ***native DLSS-FG*** - _bundled since 0.9_
 - Since v0.7.8, added **ASI plugin loading** support (_disabled_ by default (`LoadAsiPlugins=` in INI), loads from customisable folder, default `plugins`)
-- New project - [**VPatcher**](https://github.com/CRTYPUBG/VPatcher) - an ASI Plugin for VScaler for enabling DLSS and DLSSG inputs without spoofing in ***supported games***.
-- Since v0.7.8, VScaler is now automatically applying certain game patches for a better out-of-the-box experience
+- New project - [**VPatcher**](https://github.com/CRTYPUBG/VPatcher) - an ASI Plugin for cscaler for enabling DLSS and DLSSG inputs without spoofing in ***supported games***.
+- Since v0.7.8, cscaler is now automatically applying certain game patches for a better out-of-the-box experience
 - Since v0.9.0, separated FG Inputs and Outputs, added XeFG and FSR4-FG support, as well as bundled Fakenvapi and Nukem's FSR3-FG mod
 - For a detailed list of all features, check [Features](Features.md)
 
@@ -83,12 +81,12 @@
 *This project is based on [PotatoOfDoom](https://github.com/PotatoOfDoom)'s excellent [CyberFSR2](https://github.com/PotatoOfDoom/CyberFSR2).*
 
 ## How it works?
-* VScaler acts as a middleware, it intercepts upscaler calls from the game (_**Inputs**_) and redirects them to the chosen upscaling backend (_**Output**_), allowing user to replace one technology with another one. **Inputs -> VScaler -> Outputs**  
+* cscaler acts as a middleware, it intercepts upscaler calls from the game (_**Inputs**_) and redirects them to the chosen upscaling backend (_**Output**_), allowing user to replace one technology with another one. **Inputs -> cscaler -> Outputs**  
 * _Or put more bluntly, **Input** is the upscaler used in game settings, and **Output** the one selected in Opti Overlay._
 * _Same goes for FG options which are separated into **FG Source** and **FG Output**._
 
 > [!NOTE]
-> * Pressing **`Insert`** should open the VScaler **Overlay** in-game with all of the options (_`ShortcutKey=` can be changed in the INI file, or under **Keybinds** in the overlay_). 
+> * Pressing **`Insert`** should open the cscaler **Overlay** in-game with all of the options (_`ShortcutKey=` can be changed in the INI file, or under **Keybinds** in the overlay_). 
 > * Pressing **`Page Up`** shows the performance stats overlay in the top left, and can be cycled between different modes with **`Page Down`** (_keybinds customisable in the overlay_).  
 > * If Opti overlay is instantly disappearing after trying Insert a few times, maybe try **`Alt + Insert`** ([reported workaround](https://github.com/CRTYPUBG/vscaler/issues/484) for alternate keyboard layouts).
 
@@ -117,7 +115,7 @@ Currently **VScaler** can be used with DirectX 11, DirectX 12 and Vulkan, but ea
 > <details>
 >  <summary><b>Expand for [1]</b></summary>
 >
-> _**[1]** These implementations use a background DirectX12 device to be able to use DX12-only upscalers. There's a performance penalty up to 10-ish % for this method, but allows many more upscaler options. Also native DX11 implementation of FSR 2.2.1 is a backport from Unity renderer and has its own problems of which some were fixed by VScaler._
+> _**[1]** These implementations use a background DirectX12 device to be able to use DX12-only upscalers. There's a performance penalty up to 10-ish % for this method, but allows many more upscaler options. Also native DX11 implementation of FSR 2.2.1 is a backport from Unity renderer and has its own problems of which some were fixed by cscaler._
 > </details>
 
 #### For Vulkan
@@ -159,7 +157,7 @@ Please check [this](Config.md) document for configuration parameters and explana
 
 ### Instructions
 * Clone this repo with **all of its submodules**.
-* Open the VScaler.sln with Visual Studio 2022.
+* Open the cscaler.sln with Visual Studio 2022.
 * Build the project
 
 ## Credit
