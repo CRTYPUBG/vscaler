@@ -1,3 +1,4 @@
+
 <div align="center">
 
 
@@ -90,7 +91,7 @@
 > * Pressing **`Page Up`** shows the performance stats overlay in the top left, and can be cycled between different modes with **`Page Down`** (_keybinds customisable in the overlay_).  
 > * If Opti overlay is instantly disappearing after trying Insert a few times, maybe try **`Alt + Insert`** ([reported workaround](https://github.com/CRTYPUBG/cscaler/issues/484) for alternate keyboard layouts).
 
-![inputs_and_outputs](https://github.com/user-attachments/assets/49ba1459-e628-481f-92f2-3a42348c9580)
+![inputs_and_outputs](https://github.com/user-attachments/assets/967daaa4-ac4a-4635-97bb-aa57b54e9684)
 
 ## Which APIs and Upscalers are Supported?
 Currently **cscaler** can be used with DirectX 11, DirectX 12 and Vulkan, but each API has different sets of supported upscalers.  
