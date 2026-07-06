@@ -11,26 +11,26 @@
 **4.** [**Installation**](#installation)  
 **5.** [**Known Issues**](#known-issues)  
 **6.** [**Compilation and Credits**](#compilation)  
-**7.** [**Wiki**](https://github.com/CRTYPUBG/vscaler/wiki)
+**7.** [**Wiki**](https://github.com/CRTYPUBG/cscaler/wiki)
 
 <br />
 <div align="center">
-  <a href="https://discord.gg/D9KSuuyHzR"><img src="https://img.shields.io/badge/VScaler-blue?style=for-the-badge&logo=discord&logoColor=white&logoSize=auto&color=5865F2" alt="Discord invite"></a>
-  <a href="https://github.com/CRTYPUBG/vscaler/releases/latest"><img src="https://img.shields.io/badge/Download-Stable-green?style=for-the-badge&logo=github&logoSize=auto" alt="Stable release"></a>
-  <a href="https://github.com/CRTYPUBG/vscaler/releases/tag/vnightly"><img src="https://img.shields.io/badge/Download-vnightly-purple?style=for-the-badge&logo=github&logoSize=auto" alt="vnightly release"></a>
-  <a href="https://github.com/CRTYPUBG/vscaler/wiki"><img src="https://img.shields.io/badge/Documentation-blue?style=for-the-badge&logo=gitbook&logoColor=white&logoSize=auto" alt="Wiki"></a>
+  <a href="https://discord.gg/"><img src="https://img.shields.io/badge/CScaler-blue?style=for-the-badge&logo=discord&logoColor=white&logoSize=auto&color=5865F2" alt="Discord invite"></a>
+  <a href="https://github.com/CRTYPUBG/cscaler/releases/latest"><img src="https://img.shields.io/badge/Download-Stable-green?style=for-the-badge&logo=github&logoSize=auto" alt="Stable release"></a>
+  <a href="https://github.com/CRTYPUBG/cscaler/releases/tag/vnightly"><img src="https://img.shields.io/badge/Download-vnightly-purple?style=for-the-badge&logo=github&logoSize=auto" alt="vnightly release"></a>
+  <a href="https://github.com/CRTYPUBG/cscaler/wiki"><img src="https://img.shields.io/badge/Documentation-blue?style=for-the-badge&logo=gitbook&logoColor=white&logoSize=auto" alt="Wiki"></a>
 </div>
 <div align="center">
-  <a href="https://github.com/CRTYPUBG/vscaler/releases"><img src="https://img.shields.io/github/downloads/CRTYPUBG/vscaler/total?style=for-the-badge&logo=gitextensions&logoSize=auto&label=Total" alt="Total DL"></a>
-  <a href="https://github.com/CRTYPUBG/vscaler/releases/latest"><img src="https://img.shields.io/github/downloads/CRTYPUBG/vscaler/latest/total?style=for-the-badge&logo=gitextensions&logoSize=auto&label=Stable&color=green&logoColor=white" alt="Stable DL"></a>
-  <a href="https://github.com/CRTYPUBG/vscaler/releases/tag/vnightly"><img src="https://img.shields.io/github/downloads/CRTYPUBG/vscaler/vnightly/total?style=for-the-badge&logo=gitextensions&logoColor=white&logoSize=auto&label=vnightly&color=purple" alt="vnightly DL"></a>
-  <a href="https://github.com/CRTYPUBG/vscaler/stargazers"><img src="https://img.shields.io/github/stars/VScaler/VScaler?style=for-the-badge&logo=githubsponsors&logoColor=white&label=S.T.A.R.S." alt="Stars"></a>
+  <a href="https://github.com/CRTYPUBG/cscaler/releases"><img src="https://img.shields.io/github/downloads/CRTYPUBG/cscaler/total?style=for-the-badge&logo=gitextensions&logoSize=auto&label=Total" alt="Total DL"></a>
+  <a href="https://github.com/CRTYPUBG/cscaler/releases/latest"><img src="https://img.shields.io/github/downloads/CRTYPUBG/cscaler/latest/total?style=for-the-badge&logo=gitextensions&logoSize=auto&label=Stable&color=green&logoColor=white" alt="Stable DL"></a>
+  <a href="https://github.com/CRTYPUBG/cscaler/releases/tag/vnightly"><img src="https://img.shields.io/github/downloads/CRTYPUBG/cscaler/vnightly/total?style=for-the-badge&logo=gitextensions&logoColor=white&logoSize=auto&label=vnightly&color=purple" alt="vnightly DL"></a>
+  <a href="https://github.com/CRTYPUBG/cscaler/stargazers"><img src="https://img.shields.io/github/stars/cscaler/cscaler?style=for-the-badge&logo=githubsponsors&logoColor=white&label=S.T.A.R.S." alt="Stars"></a>
 </div>
 
 
 ## About
 
-**VScaler** is a tool that lets you replace upscalers in games that ***already support DLSS2+ / FSR2+ / XeSS*** ($`^1`$), as well as manage ***frame generation*** in already mentioned games _(either by replacing existing FG options or enabling it in DX12 games through experimental ***VFG***)_. It also offers extensive customization options for all users, including those with Nvidia GPUs using DLSS.
+**cscaler** is a tool that lets you replace upscalers in games that ***already support DLSS2+ / FSR2+ / XeSS*** ($`^1`$), as well as manage ***frame generation*** in already mentioned games _(either by replacing existing FG options or enabling it in DX12 games through experimental ***VFG***)_. It also offers extensive customization options for all users, including those with Nvidia GPUs using DLSS.
 
 > [!CAUTION]
 > * We've been informed about some **FAKE websites** presenting themselves as cscaler team, so we would like to strongly highlight that we **DO NOT HAVE an official website!**
@@ -55,9 +55,9 @@
 
 
 > [!IMPORTANT]
-> _**Always check the [Wiki Compatibility list](https://github.com/CRTYPUBG/vscaler/wiki) for known game issues and workarounds.**_  
-> Also please check the  [***VScaler known issues***](#known-issues) at the end regarding **RTSS** compatibility.  
-> A separate [***FSR4 Compatibility list***](https://github.com/CRTYPUBG/vscaler/wiki/FSR4-Compatibility-List) is available for community-sourced tested games.  
+> _**Always check the [Wiki Compatibility list](https://github.com/CRTYPUBG/cscaler/wiki) for known game issues and workarounds.**_  
+> Also please check the  [***cscaler known issues***](#known-issues) at the end regarding **RTSS** compatibility.  
+> A separate [***FSR4 Compatibility list***](https://github.com/CRTYPUBG/cscaler/wiki/FSR4-Compatibility-List) is available for community-sourced tested games.  
 > ***[3]** For **not bundled** items, please check [Installation](#installation).*  
 
 > [!NOTE]
@@ -69,14 +69,14 @@
 >  
 > *Regarding **XeSS** inputs, since **Unreal Engine plugin** does not provide depth, replacing in-game XeSS breaks other upscalers (e.g. Redout 2 as a XeSS-only game), but you can still apply RCAS sharpening to XeSS to reduce blurry visuals.* 
 >
-> *Regarding **FSR inputs**, FSR 3.1 is the first version with a fully standardised, forward-looking API and should be fully supported. Since FSR2 and FSR3 support custom interfaces, game support will depend on the developers' implementation. With Unreal Engine games, you might need [ini tweaks](https://github.com/CRTYPUBG/vscaler/wiki/Unreal-Engine-Tweaks) for FSR inputs.*  
+> *Regarding **FSR inputs**, FSR 3.1 is the first version with a fully standardised, forward-looking API and should be fully supported. Since FSR2 and FSR3 support custom interfaces, game support will depend on the developers' implementation. With Unreal Engine games, you might need [ini tweaks](https://github.com/CRTYPUBG/cscaler/wiki/Unreal-Engine-Tweaks) for FSR inputs.*  
 >
-> **[2]** *Regarding **FSR4**, please check [FSR4 Compatibility list](https://github.com/CRTYPUBG/vscaler/wiki/FSR4-Compatibility-List) for known supported games and general info.*
+> **[2]** *Regarding **FSR4**, please check [FSR4 Compatibility list](https://github.com/CRTYPUBG/cscaler/wiki/FSR4-Compatibility-List) for known supported games and general info.*
 > 
 > </details>
 
 
-## Official Discord Server: [VScaler](https://discord.gg/D9KSuuyHzR)
+## Official Discord Server: [cscaler](https://discord.gg/D9KSuuyHzR)
 
 *This project is based on [PotatoOfDoom](https://github.com/PotatoOfDoom)'s excellent [CyberFSR2](https://github.com/PotatoOfDoom/CyberFSR2).*
 
@@ -88,12 +88,12 @@
 > [!NOTE]
 > * Pressing **`Insert`** should open the cscaler **Overlay** in-game with all of the options (_`ShortcutKey=` can be changed in the INI file, or under **Keybinds** in the overlay_). 
 > * Pressing **`Page Up`** shows the performance stats overlay in the top left, and can be cycled between different modes with **`Page Down`** (_keybinds customisable in the overlay_).  
-> * If Opti overlay is instantly disappearing after trying Insert a few times, maybe try **`Alt + Insert`** ([reported workaround](https://github.com/CRTYPUBG/vscaler/issues/484) for alternate keyboard layouts).
+> * If Opti overlay is instantly disappearing after trying Insert a few times, maybe try **`Alt + Insert`** ([reported workaround](https://github.com/CRTYPUBG/cscaler/issues/484) for alternate keyboard layouts).
 
 ![inputs_and_outputs](https://github.com/user-attachments/assets/49ba1459-e628-481f-92f2-3a42348c9580)
 
 ## Which APIs and Upscalers are Supported?
-Currently **VScaler** can be used with DirectX 11, DirectX 12 and Vulkan, but each API has different sets of supported upscalers.  
+Currently **cscaler** can be used with DirectX 11, DirectX 12 and Vulkan, but each API has different sets of supported upscalers.  
 [**VFG**](#VFG--hudfix-experimental-hud-ghosting-fix) currently **only supports DX12** and is explained in a separate paragraph.
 
 #### For DirectX 12
@@ -130,7 +130,7 @@ Currently **VScaler** can be used with DirectX 11, DirectX 12 and Vulkan, but ea
 It's an **experimental** way of adding FG to games without native Frame Generation, or can also be used as a last case scenario if the native FG is not working properly.  
 * Currently supports FSR3-FG (requires HUDfix to avoid HUD ghosting), XeFG and FSR4-FG (ML model deals with the HUD, so may or may not require HUDfix).
 
-For more information on VFG and how to use it, please check the Wiki page - [VFG](https://github.com/CRTYPUBG/vscaler/wiki/VFG).
+For more information on VFG and how to use it, please check the Wiki page - [VFG](https://github.com/CRTYPUBG/cscaler/wiki/VFG).
 
 
 ## Installation
@@ -138,7 +138,7 @@ For more information on VFG and how to use it, please check the Wiki page - [VFG
 > _**Warning**: **Do not use this mod with online games.** It may trigger anti-cheat software and cause bans!_
 
 > [!IMPORTANT]
-> **For installation steps, please check the [**Wiki**](https://github.com/CRTYPUBG/vscaler/wiki)**  
+> **For installation steps, please check the [**Wiki**](https://github.com/CRTYPUBG/cscaler/wiki)**  
 
 ## Configuration
 Please check [this](Config.md) document for configuration parameters and explanations. If your GPU is not an Nvidia one, check [GPU spoofing options](Spoofing.md) *(Will be updated)*
@@ -146,9 +146,9 @@ Please check [this](Config.md) document for configuration parameters and explana
 ## Known Issues
 
 > [!NOTE]
-> **For a list of known issues, please check the [**Wiki**](https://github.com/CRTYPUBG/vscaler/wiki)**.
+> **For a list of known issues, please check the [**Wiki**](https://github.com/CRTYPUBG/cscaler/wiki)**.
 > 
-> Also worth checking the [Compatibility List](https://github.com/CRTYPUBG/vscaler/wiki/Compatibility-List) for possible game issues and their fixes.
+> Also worth checking the [Compatibility List](https://github.com/CRTYPUBG/cscaler/wiki/Compatibility-List) for possible game issues and their fixes.
 
 ## Compilation
 
